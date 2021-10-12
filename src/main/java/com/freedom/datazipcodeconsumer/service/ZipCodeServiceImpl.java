@@ -10,7 +10,10 @@ import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
 import com.freedom.datazipcodeconsumer.exception.ZipCodeInvalidException;
 import com.freedom.datazipcodeconsumer.repository.ZipCodeRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ZipCodeServiceImpl implements ZipCodeService {
 	
 	@Autowired
@@ -21,28 +24,52 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 		
 		try {
 		
-		zipCode = formatZipCode(zipCode);
-		
-		isValidZipCode(zipCode);				
-		
-		List<DataZipCode> lista = zipCodeRepository.findByZipCode(zipCode);
-		
-		return lista.get(0);
+			zipCode = formatZipCode(zipCode);
+			
+			isValidZipCode(zipCode);
+			
+			List<DataZipCode> lista = zipCodeRepository.findByZipCode(zipCode);		
+			
+			return checkDataZipCode(lista, zipCode);
 		
 		} catch (Exception ex) {			
-			throw new ZipCodeInvalidException("Não foi possível carregar os dados do CEP: " + zipCode, ex);
+			throw new ZipCodeInvalidException("Não foi possível carregar os dados do CEP: " +zipCode, ex);
 		} 
 	}
 	
 	
-	private void isValidZipCode(String zipCode) throws DataZipCodeConsumerException{
+	private void isValidZipCode(String zipCode) throws DataZipCodeConsumerException {
 		if(zipCode.length() != 8) {
-			throw new ZipCodeInvalidException("CEP inválido!");
+			throw new ZipCodeInvalidException("CEP inválido");
 		}		
 	}
 	
 	private String formatZipCode(String zipCode) {
 		return zipCode.replaceAll("[^\\d ]", "");
+	}
+	
+	private DataZipCode checkDataZipCode(List<DataZipCode> lista, String zipCode) throws DataZipCodeConsumerException {
+		int pos = zipCode.length();
+		
+		while (lista.get(0).getStreet().isBlank()) {
+				
+			log.warn("Endereço para o CEP {} está vazio", lista.get(0).getZipCode());
+			
+			String newZipCode = replaceZeroZipCode(lista.get(0).getZipCode(), pos);			
+			lista = zipCodeRepository.findByZipCode(newZipCode);			
+			pos--;
+		} 
+			
+		return lista.get(0);
+		
+	}
+	
+	private String replaceZeroZipCode(String zipCode, int pos) throws DataZipCodeConsumerException {
+				
+		StringBuilder zipCodeStringBuilder = new StringBuilder(zipCode);
+		zipCodeStringBuilder.setCharAt(pos-1, '0');
+		return zipCodeStringBuilder.toString();	
+			
 	}
 
 }
