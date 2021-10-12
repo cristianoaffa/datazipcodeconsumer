@@ -1,8 +1,8 @@
-//script to create and populate zipCode_information
+//script to create and populate zipCode_info
 
-use zipCode_information
+use zipCode_info
 
-db.datazipCode.insertMany([
+db.dataZipCode.insertMany([
    { zipCode: "37500026", street: "Rua Santos Pereira", neighborhood: "Centro", city: "Itajubá", state: "MG" }, 
    { zipCode: "37500030", street: "Praça Amélia Braga", neighborhood: "Centro", city: "Itajubá", state: "MG" }, 
    { zipCode: "37500294", street: "Rua José Cândido Pereira dos Santos", neighborhood: "Estiva", city: "Itajubá", state: "MG" }, 
