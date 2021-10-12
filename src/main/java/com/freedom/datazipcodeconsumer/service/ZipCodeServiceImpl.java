@@ -28,9 +28,9 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 			
 			isValidZipCode(zipCode);
 			
-			List<DataZipCode> lista = zipCodeRepository.findByZipCode(zipCode);		
+			List<DataZipCode> listDataZipCode = zipCodeRepository.findByZipCode(zipCode);		
 			
-			return checkDataZipCode(lista, zipCode);
+			return checkDataZipCode(listDataZipCode, zipCode);
 		
 		} catch (Exception ex) {			
 			throw new ZipCodeInvalidException("Não foi possível carregar os dados do CEP: " +zipCode, ex);
@@ -39,7 +39,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	
 	
 	private void isValidZipCode(String zipCode) throws DataZipCodeConsumerException {
-		if(zipCode.length() != 8) {
+		if (zipCode.length() != 8) {
 			throw new ZipCodeInvalidException("CEP inválido");
 		}		
 	}
@@ -48,28 +48,26 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 		return zipCode.replaceAll("[^\\d ]", "");
 	}
 	
-	private DataZipCode checkDataZipCode(List<DataZipCode> lista, String zipCode) throws DataZipCodeConsumerException {
+	private DataZipCode checkDataZipCode(List<DataZipCode> listDataZipCode, String zipCode) throws DataZipCodeConsumerException {
 		int pos = zipCode.length();
 		
-		while (lista.get(0).getStreet().isBlank()) {
+		while (listDataZipCode.get(0).getStreet().isBlank()) {
 				
-			log.warn("Endereço para o CEP {} está vazio", lista.get(0).getZipCode());
+			log.warn("Endereço para o CEP {} está vazio", listDataZipCode.get(0).getZipCode());
 			
-			String newZipCode = replaceZeroZipCode(lista.get(0).getZipCode(), pos);			
-			lista = zipCodeRepository.findByZipCode(newZipCode);			
+			String newZipCode = replaceZeroZipCode(listDataZipCode.get(0).getZipCode(), pos);			
+			listDataZipCode = zipCodeRepository.findByZipCode(newZipCode);			
 			pos--;
 		} 
 			
-		return lista.get(0);
-		
+		return listDataZipCode.get(0);		
 	}
 	
 	private String replaceZeroZipCode(String zipCode, int pos) throws DataZipCodeConsumerException {
 				
 		StringBuilder zipCodeStringBuilder = new StringBuilder(zipCode);
 		zipCodeStringBuilder.setCharAt(pos-1, '0');
-		return zipCodeStringBuilder.toString();	
-			
+		return zipCodeStringBuilder.toString();				
 	}
 
 }
