@@ -51,8 +51,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	private DataZipCode checkDataZipCode(List<DataZipCode> listDataZipCode, String zipCode) throws DataZipCodeConsumerException {
 		int pos = zipCode.length();
 		
-		while (listDataZipCode.get(0).getStreet().isBlank()) {
-				
+		while (listDataZipCode.get(0).getStreet().isBlank()) {				
 			log.warn("Endereço para o CEP {} está vazio", listDataZipCode.get(0).getZipCode());
 			
 			String newZipCode = replaceZeroZipCode(listDataZipCode.get(0).getZipCode(), pos);			
@@ -63,10 +62,10 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 		return listDataZipCode.get(0);		
 	}
 	
-	private String replaceZeroZipCode(String zipCode, int pos) throws DataZipCodeConsumerException {
-				
+	private String replaceZeroZipCode(String zipCode, int pos) throws DataZipCodeConsumerException {			
 		StringBuilder zipCodeStringBuilder = new StringBuilder(zipCode);
 		zipCodeStringBuilder.setCharAt(pos-1, '0');
+		
 		return zipCodeStringBuilder.toString();				
 	}
 
