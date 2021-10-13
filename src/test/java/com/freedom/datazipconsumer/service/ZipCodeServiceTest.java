@@ -50,12 +50,10 @@ public class ZipCodeServiceTest {
 		String zipCode = "66010900";
 		DataZipCode dataZipCode = mockZipCodeService.getDataZipCode(zipCode);
 		
-		assertEquals("66010000", dataZipCode.getZipCode());
 		assertEquals("Avenida Presidente Vargas - até 379/380", dataZipCode.getStreet());
 		assertEquals("Campina", dataZipCode.getNeighborhood());
 		assertEquals("Belém", dataZipCode.getCity());
-		assertEquals("PA", dataZipCode.getState());		
-		
+		assertEquals("PA", dataZipCode.getState());				
 	}
 	
 	//@Test
@@ -64,12 +62,10 @@ public class ZipCodeServiceTest {
 		String zipCode = "12209675";
 		DataZipCode dataZipCode = mockZipCodeService.getDataZipCode(zipCode);
 		
-		assertEquals("12209000", dataZipCode.getZipCode());
 		assertEquals("Avenida Rui Barbosa - até 614/615", dataZipCode.getStreet());
 		assertEquals("Jardim Bela Vista", dataZipCode.getNeighborhood());
 		assertEquals("São José dos Campos", dataZipCode.getCity());
 		assertEquals("SP", dataZipCode.getState());		
-		
 	}
 
 }

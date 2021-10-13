@@ -21,7 +21,9 @@ public class DataZipCode {
 	@JsonIgnore
 	private String id;
 	
-	private String zipCode;	
+	@JsonIgnore
+	private String zipCode;
+	
 	private String street;
 	private String neighborhood;
 	private String city;
