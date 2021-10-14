@@ -1,11 +1,5 @@
 package com.freedom.datazipcodeconsumer.controller;
 
-import com.freedom.datazipcodeconsumer.domain.DataZipCode;
-import com.freedom.datazipcodeconsumer.domain.ZipCodeVO;
-import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
-import com.freedom.datazipcodeconsumer.service.ZipCodeService;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +8,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.freedom.datazipcodeconsumer.domain.DataZipCode;
+import com.freedom.datazipcodeconsumer.domain.ZipCodeVO;
+import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
+import com.freedom.datazipcodeconsumer.service.ZipCodeService;
+
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/zipcode")
 public class ZipCodeController {
 	
-	@Autowired
-	private ZipCodeService zipCodeService;
+	private final ZipCodeService zipCodeService;
 	
 	@ApiOperation(value = "Returns the data of a valid ZipCode")
 	@PostMapping(value="/data", produces = MediaType.APPLICATION_JSON_VALUE)

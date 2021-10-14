@@ -45,6 +45,8 @@ public class DataZipCodeBuilder {
         );
 	}
 	
+	
+	
     public static List<DataZipCode> dataZipCodeListValidElementEmptyTest(String zipCode) {
         return List.of(
                 DataZipCode.builder()
@@ -57,5 +59,33 @@ public class DataZipCodeBuilder {
                         .build()
         );	    
 	}
+    
+    public static List<DataZipCode> dataZipCodeListValidOneElementControllerTest(String zipCode) {
+        return List.of(
+                DataZipCode.builder()
+                		.id("6167b3eb89acf8be0d10c073")
+                		.zipCode(zipCode)
+                        .street("Rua Bela Cruz")                                    
+                        .neighborhood("Farias Brito")
+                        .city("Fortaleza")
+                        .state("CE")                        
+                        .build()
+        );
+	}
+    
+    /*
+    public static List<DataZipCode> dataZipCodeListWith(String zipCode, String street, String neighborhood, String city, String state) {
+		return List.of(
+				DataZipCode.builder()
+						.id(id)
+						.zipCode(zipCode)
+						.street(street)
+						.neighborhood(neighborhood)
+						.city(city)
+						.state(state)
+						.build()
+		);
+	}
+	*/
 
 }

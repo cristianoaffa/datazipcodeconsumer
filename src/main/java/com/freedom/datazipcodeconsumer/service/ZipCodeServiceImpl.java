@@ -70,10 +70,9 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 			zipCodeStringBuilder.setCharAt(pos-1, '0');
 			
 			return zipCodeStringBuilder.toString();	
-		} else {
-			return zipCode;
-		}
-					
+		} 
+		
+		return zipCode;					
 	}
 
 }
