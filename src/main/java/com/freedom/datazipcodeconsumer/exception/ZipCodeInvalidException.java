@@ -12,8 +12,4 @@ public class ZipCodeInvalidException extends DataZipCodeConsumerException {
 		super(message);
 	}
 
-	public ZipCodeInvalidException(Throwable cause) {
-		super(cause);
-	}
-
 }

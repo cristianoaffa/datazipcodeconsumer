@@ -1,6 +1,10 @@
 package com.freedom.datazipcodeconsumer.controller;
 
-
+import com.freedom.datazipcodeconsumer.domain.DataZipCode;
+import com.freedom.datazipcodeconsumer.domain.ZipCodeVO;
+import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
+import com.freedom.datazipcodeconsumer.service.ZipCodeService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,13 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.freedom.datazipcodeconsumer.domain.DataZipCode;
-import com.freedom.datazipcodeconsumer.domain.ZipCodeVO;
-import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
-import com.freedom.datazipcodeconsumer.service.ZipCodeService;
-
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 @RequestMapping("/api/zipcode")
 public class ZipCodeController {
@@ -24,16 +21,16 @@ public class ZipCodeController {
 	@Autowired
 	private ZipCodeService zipCodeService;
 	
-	@ApiOperation(value = "Return the data of a valid ZipCode")
+	@ApiOperation(value = "Returns the data of a valid ZipCode")
 	@PostMapping(value="/data", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> returnDataZipCode(@RequestBody ZipCodeVO zipCodeVO) throws DataZipCodeConsumerException {
+	public ResponseEntity<Object> returnDataZipCode(@RequestBody ZipCodeVO zipCodeVO) throws DataZipCodeConsumerException {
 		
 		try {			
 			DataZipCode dataZipCode = zipCodeService.getDataZipCode(zipCodeVO.getZipCode());
 			return ResponseEntity.ok(dataZipCode);					
 			
 		} catch (Exception ex) {						
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CEP inválido");			
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getCause().getMessage());			
 		}
 			
 	}

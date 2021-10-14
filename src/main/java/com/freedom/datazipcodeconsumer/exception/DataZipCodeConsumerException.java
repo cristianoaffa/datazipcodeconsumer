@@ -12,8 +12,4 @@ public class DataZipCodeConsumerException extends Exception {
 		super(message);
 	}
 
-	public DataZipCodeConsumerException(Throwable cause) {
-		super(cause);
-	}
-
 }

@@ -1,6 +1,6 @@
 //script to create and populate zipCode_info
 
-use zipCode_info
+db = connect('mongodb://localhost:27017/zipCode_info');
 
 db.dataZipCode.insertMany([
    { zipCode: "37500026", street: "Rua Santos Pereira", neighborhood: "Centro", city: "Itajubá", state: "MG" }, 

@@ -5,6 +5,6 @@ import com.freedom.datazipcodeconsumer.exception.DataZipCodeConsumerException;
 
 public interface ZipCodeService {
 	
-	public DataZipCode getDataZipCode(String zipCode) throws DataZipCodeConsumerException;
+	DataZipCode getDataZipCode(String zipCode) throws DataZipCodeConsumerException;
 
 }
