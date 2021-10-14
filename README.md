@@ -11,6 +11,9 @@ Foi utilizado o banco de dados MongoDB para a construção de uma massa de teste
 
 Foi adotado a organização em Controller, Service e Repository para melhor entendimento do fluxo e camadas do processo.
 
+Também foi adicionada a configuração do "Swagger" para simular o endpoint da Controller.
+Após iniciar o projeto na IDE pode se acessar o "Swagger" pelo endereço: "http://localhost:8080/swagger-ui.html"
+
 ### 📋 Criação da Massa de dados no MongoDB
 
 Para realizar essa criação na sua máquina local siga os passos abaixo:
